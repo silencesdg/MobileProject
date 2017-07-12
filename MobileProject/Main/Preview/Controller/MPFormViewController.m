@@ -91,6 +91,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    MPWeakSelf(self)
     if (indexPath.row==0) {
         MPIconAndTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MPIconAndTitleCell class]) forIndexPath:indexPath];
         [cell configCellIconName:@"mine_setting_icon" cellTitle:@"系统设置" showLine:YES];
@@ -114,19 +115,18 @@
         [cell setCellDataKey:@"生日" curValue:self.myBirthday blankValue:@"请选择出生日期" isShowLine:YES cellType:MPTitleAndPromptCellTypeSelect];
         return cell;
     }
-    else if (indexPath.row==4)
+    else
     {
         MPMultitextCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MPMultitextCell class]) forIndexPath:indexPath];
         [cell setCellDataKey:@"家庭地址" textValue:self.myAddress blankValue:@"请输入家庭地址" showLine:NO];
         cell.placeFontSize=15;
         cell.textValueChangedBlock=^(NSString* text)
         {
+            MPStrongSelf(self)
             self.myAddress=text;
         };
         return cell;
     }
-    
-    return nil;
 }
 
 

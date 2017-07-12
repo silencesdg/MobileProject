@@ -1,6 +1,9 @@
-## MobileProject介绍![Platform info](http://img.shields.io/cocoapods/p/YTKNetwork.svg?style=flat)
 
-MobileProject项目是一个以MVC模式搭建的开源功能集合，基于Objective-C上面进行编写，意在解决新项目对于常见功能模块的重复开发，MobileProject对于项目的搭建也进行很明确的划分，各个模块职责也比较明确，MobileProject也引入的一些常用第三方插件、宏定义、工具帮助类等；整个项目也是在不断更新跟维护中，功能点也会不断更新；代码支持iOS7以后版本；
+<img src="https://github.com/wujunyang/MobileProject/blob/master/ObjcUML/MobileProject.png" width=90% height=250px></img>
+
+## MobileProject介绍
+
+MobileProject项目是一个以MVC模式搭建的开源功能集合，基于Objective-C上面进行编写，意在解决新项目对于常见功能模块的重复开发，MobileProject对于项目的搭建也进行很明确的划分，各个模块职责也比较明确，MobileProject也引入的一些常用第三方插件、宏定义、工具帮助类等；整个项目也是在不断更新跟维护中，功能点也会不断更新；代码支持iOS7以后版本；此项目比较着重是针对单个项目的功能，如果你对模块化封装更感兴趣可以了解我另一个仓库【jiaModuleDemo】
 
 
 ## MobileProject模块简介
@@ -108,37 +111,64 @@ Plist用于存放plist文件，主要是本项目中会创建多个的Tag,而每
 
 ```obj-c
 platform :ios, '7.0'
-pod 'AFNetworking', '~>2.6.0'
-pod 'ReactiveCocoa', '~> 2.5'
-pod 'SDWebImage', '~> 3.7.5'
-pod 'JSONModel', '~> 1.0.1'
-pod 'Masonry','~>0.6.1'
-pod 'FMDB/common' , '~>2.5'
-pod 'FMDB/SQLCipher', '~>2.5'
-pod 'CocoaLumberjack', '~> 2.0.0-rc'
-pod 'BaiduMapKit' #百度地图SDK
-pod 'UMengAnalytics-NO-IDFA'#友盟统计无IDFA版SDK
-pod 'GTSDK'  #个推SDK
-pod 'UMengSocial', '~> 4.3'  #友盟社会化分享及第三方登录
-pod 'FLEX', '~> 2.0', :configurations => ['Debug']
-pod 'ActionSheetPicker-3.0'
-pod 'JSPatch'
-pod 'XAspect'
-pod 'CYLTabBarController'
-pod 'LKDBHelper'
-pod 'RegexKitLite', '4.0'
-pod 'IQKeyboardManager'
-pod 'LBXScan','~> 1.1.1'
-pod 'MBProgressHUD', '~> 0.9'
-pod 'MWPhotoBrowser'
-pod 'M13ProgressSuite', '~> 1.2.7'
-pod 'WebViewJavascriptBridge', '~> 5.0'
+
+# There are no targets called "MobileProjectDefault" in any Xcode projects
+abstract_target 'MobileProjectDefault' do
+    pod 'AFNetworking', '~>3.0'
+    pod 'ReactiveCocoa', '~> 2.5'
+    pod 'SDWebImage', '~> 3.7.5'
+    pod 'JSONModel', '~> 1.0.1'
+    pod 'Masonry','~>0.6.1'
+    pod 'FMDB/common' , '~>2.5'
+    pod 'FMDB/SQLCipher', '~>2.5'
+    pod 'CocoaLumberjack', '~> 2.0.0-rc'
+    pod 'BaiduMapKit' #百度地图SDK
+    pod 'UMengAnalytics-NO-IDFA'#友盟统计无IDFA版SDK
+    pod 'GTSDK'  #个推SDK
+    pod 'UMengSocial', '~> 4.3'  #友盟社会化分享及第三方登录
+    pod 'FLEX', '~> 2.0', :configurations => ['Debug']
+    pod 'ActionSheetPicker-3.0'
+    pod 'JSPatch'
+    pod 'XAspect'
+    pod 'CYLTabBarController'
+    pod 'LKDBHelper'
+    pod 'RegexKitLite', '4.0'
+    pod 'IQKeyboardManager', '~> 3.3.7'  #兼容IOS7
+    pod 'LBXScan','~> 1.1.1'
+    pod 'MBProgressHUD', '~> 0.9'
+    pod 'MWPhotoBrowser'
+    pod 'M13ProgressSuite', '~> 1.2.7'
+    pod 'WebViewJavascriptBridge', '~> 5.0'
+    pod 'YYText'
+    pod 'MLeaksFinder'  #可以把它放在MobileProject_Local的target中 这样就不会影响到产品环境
+    
+    target 'MobileProject_Local' do
+
+    end
+    
+    target 'MobileProject' do
+
+    end
+end
+
 ```
 
 
 #### Vender(第三方)模块的内容
 
 虽然项目中已经用Pod来管理第三方插件，但对于一些可能要进行修改的第三方可以存放在这边，本实例中引用的几个比较常用的第三方插件，简单介绍其中的几个，GVUserDefaults是对UserDefaults的封装，简单就可以用于存取操作；JDStatusBarNotification是在状态栏提示效果的插件；ActionSheetPicker底部弹出如时间选择、选项的插件；QBImagePickerController是照片选择插件，支持多选并可以设置最多选择张数；
+
+## 基础知识点模块
+
+1 viewController生命周期
+
+2 运行时RunTime知识运用 里面包括RunTime一些常见的实例，部分有简单的介绍
+
+3 多线程知识运用 包含NSThread多线程、GCD多线程、NSOperation多线程、同步锁知识各种实例实现
+
+4 Protocol实现类 如何简单实现解耦
+
+5 Block内存释放知识点 常见的内存处理问题 包含block循环、对象释放等
 
 ## 功能模块的集成
 
@@ -192,6 +222,26 @@ pod 'WebViewJavascriptBridge', '~> 5.0'
 
 25 增加自定义弹出窗帮助类，模拟系统UIAlertView效果,增加一个带UITextView的弹出效果，其它自定义视图根据项目再创建；
 
+26 YYText富文本实例 简单实现关于YYText的运用，并包含一些小实例
+
+27 列表行展开跟回收隐藏 实现列表分组显示，然后实现可以对每一组进行展现跟收缩的功能；
+
+28 常见表单行类型 常见的几种表单实现方式，包含输入、选择、多行输入、时间选择；
+
+29 人脸识别注册及验证 集成识别SDK,完成人脸的识别签到效果；
+
+30 JavaScriptCore运用 跟H5结合的实例，完成相应的调用效果
+
+31 Masonry布局实例 列出一些比较常见的布局方式
+
+32 键盘处理操作 实现关于键盘弹出时的自定义视图高度问题
+
+33 自定义导航栏动态显现效果 可以实现滚动时对导航栏的变化，监听关于滚动的变化
+
+34 列表只加载显示时Cell的SDWebImage图 实现列表在快速滚动时行的图片先不进行加载，直到停止时才进行加载图片，优化展现
+
+35 长按列表行拖动效果 实现列表中的某一行进行动态拉动，并插入到其它位置效果
+
 ## 效果图
 
 <img src="https://github.com/wujunyang/MobileProject/blob/master/ObjcUML/1.png" width=200px height=300px></img>
@@ -217,9 +267,9 @@ pod 'WebViewJavascriptBridge', '~> 5.0'
 
 如果你在使用过程中有什么不明白或者问题可以wujunyang@126.com联系，当然如果你有时间也可以一起维护
 
-##许可
+## 许可
 
-MobileProject 使用 MIT 许可证，详情可见 [LICENSE](LICENSE) 文件。
+MobileProject 使用 MIT 许可证，详情可见 LICENSE 文件。
 
 
 
